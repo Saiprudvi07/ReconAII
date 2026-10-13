@@ -1,0 +1,42 @@
+{
+  "project": "ReconAI",
+  "version": "1.0",
+  "sources": [
+    "ledger.csv",
+    "settlement.csv"
+  ],
+  "fields": {
+    "txn_ref": {
+      "type": "string",
+      "required": true,
+      "rules": ["non_empty"]
+    },
+    "value_date": {
+      "type": "date",
+      "format": "YYYY-MM-DD",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "required": true,
+      "pattern": "^[A-Z]{3}$"
+    },
+    "amount": {
+      "type": "decimal",
+      "required": true
+    }
+  },
+  "join_keys": [
+    "txn_ref",
+    "value_date",
+    "currency"
+  ],
+  "candidate_key": [
+    "txn_ref",
+    "currency"
+  ],
+  "amount_tolerance": "0.01",
+  "date_window_days": 3,
+  "matching_authority": "deterministic_python_rules",
+  "ai_can_decide_match_status": false
+}
